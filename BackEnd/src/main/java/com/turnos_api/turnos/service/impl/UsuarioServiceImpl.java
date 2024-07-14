@@ -35,4 +35,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public void deleteById(Long id) {
         usuarioDAO.deleteById(id);
     }
+
+    @Override
+    public boolean existsById(Long id) {
+        return usuarioDAO.existsById(id);  // Implementación del método
+    }
 }

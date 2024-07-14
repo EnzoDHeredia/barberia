@@ -35,4 +35,9 @@ public class UsuarioDAOImpl implements IUsuarioDAO {
     public void deleteById(Long id) {
         usuarioRepository.deleteById(id);
     }
+
+    @Override
+    public boolean existsById(Long id) {
+        return usuarioRepository.existsById(id);
+    }
 }

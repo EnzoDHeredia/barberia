@@ -48,4 +48,33 @@ public class UsuarioController {
         return ResponseEntity.notFound().build();
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<?> create(@RequestBody UsuarioDTO usuarioDTO) {
+        Usuario usuario = modelMapper.map(usuarioDTO, Usuario.class);
+        usuarioService.save(usuario);
+        UsuarioDTO createdUsuarioDTO = modelMapper.map(usuario, UsuarioDTO.class);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUsuarioDTO);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO) {
+        if (!usuarioService.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Usuario usuario = modelMapper.map(usuarioDTO, Usuario.class);
+        usuario.setId(id);  // Asegurarse de que el ID está correctamente asignado
+        usuarioService.save(usuario);
+        return ResponseEntity.ok("Registro Actualizado.");
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        if (!usuarioService.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        usuarioService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
