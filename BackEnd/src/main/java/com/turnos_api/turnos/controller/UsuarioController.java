@@ -45,7 +45,6 @@ public class UsuarioController {
             UsuarioDTO usuarioDTO = modelMapper.map(usuario, UsuarioDTO.class);
             return ResponseEntity.ok(usuarioDTO);
         }
-
         return ResponseEntity.notFound().build();
     }
 
